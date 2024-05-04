@@ -10,10 +10,67 @@ export const InvoiceApp = () => {
 
     //destructuramos
     const {id, name, client, company, items: itemsInitial,total} = getInvoice();
-    const [productValue, setProductValue] = useState('');
-    const [priceValue, setPriceValue] = useState('');
-    const [quantityValue, setQuantityValue] = useState('');
-    const [items, setItems] = useState(itemsInitial);
+
+    //se genera un objeto para poder controlar los campos y su estado 
+    const [formItemsState,setFormItemState] = useState({
+        product: '',
+        price: '',
+        quantity: '' 
+    });
+    // aca se pasan por variable para que podamos usarla
+    const {product,price,quantity} = formItemsState;
+    const [items, setItems] = useState(itemsInitial); //asi se maneja cuando se quiere agregar un nuevo item
+    const [counter,setCounter] = useState(4); //asi se aumenta el valor de 1 campo
+
+    // se separa del codigo html los eventos que realiza el boton el name es el nombre del campo y value es el valor de campo 
+    const onInputChange = ({ target: { name, value } }) =>  {
+        console.log(name);
+        console.log(value);   
+        setFormItemState({
+            ...formItemsState,
+            [name]: value
+        });    
+    }
+
+    const onInvoiceItemsSubmit = (event) => {
+        event.preventDefault();
+
+        if (product.trim().length<=1) {
+            alert('Debe Ingresar Producto');
+            return;
+        }
+        if (price.trim().length<=1) {
+            alert('Falta Precio');
+            return;
+        }
+        if (isNaN(price.trim())) {
+            alert('Precio debe ser Numerico');
+            return;
+        }
+        if (quantity.trim().length<1) {
+            alert('Falta Cantidad');
+            return;
+        };
+        if (isNaN(quantity.trim())) {
+            alert('Cantidad debe ser Numerico');
+            return;
+        }
+        
+        setItems([...items, {
+            id:counter,
+            product: product.trim(), 
+            price: +price.trim(),
+            quantity: parseInt(quantity.trim(),10)
+        }])        
+        
+        setFormItemState({
+            product: '',
+            price: '',
+            quantity: '', 
+        })
+
+        setCounter(counter+1);
+    }
 
     return (
         <>
@@ -37,47 +94,36 @@ export const InvoiceApp = () => {
                         </div>  
                         <ListItemsView title="Productos de la factura" items={ items } />
                         <TotalView total = { total }/>
-                        <form  className="w-50" onSubmit={event => {
-                            event.preventDefault();
-                            setItems([...items, {
-                                id:4,
-                                product: productValue, 
-                                price: +priceValue,
-                                quantity: parseInt(quantityValue,10)
-                            }])        
-                            setProductValue('');
-                            setPriceValue('');
-                            setQuantityValue('');
-                        } }>
+                        <form  className="w-50" onSubmit={ event => onInvoiceItemsSubmit(event) }>
                             <input
                                 type="text" 
                                 name="product" 
-                                value={ productValue }
+                                value={ product }
                                 placeholder="Producto" 
-                                className="form-control m-3" onChange={event => {
-                                    console.log(event.target.value)   
-                                    setProductValue(event.target.value);    
-                                }}  /> 
+                                className="form-control m-3" 
+                                onChange={ onInputChange }  
+                            /> 
                             <input
                                 type="text" 
                                 name="price" 
-                                value={ priceValue}
+                                value={ price }
                                 placeholder="Precio" 
-                                className="form-control m-3" onChange={event => {
-                                    console.log(event.target.value)
-                                    setPriceValue(event.target.value);        
-                                }}  /> 
+                                className="form-control m-3" 
+                                onChange={event => onInputChange(event)}  
+                            /> 
                             <input
                                 type="text" 
                                 name="quantity"
-                                value={quantityValue} 
+                                value={ quantity } 
                                 placeholder="Cantidad" 
-                                className="form-control m-3" onChange={event => {
-                                    console.log(event.target.value)
-                                    setQuantityValue(event.target.value);        
-                                }}  /> 
-
-                                <button type="submit" className="btn btn-primary">Crear Item</button>
+                                className="form-control m-3" 
+                                onChange={ onInputChange }  
+                            />  
+                            <button 
+                                type="submit" 
+                                className="btn btn-primary m-3">
+                                    Nuevo Item
+                            </button>
                         </form>
                     </div>
                 </div>

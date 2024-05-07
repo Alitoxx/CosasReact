@@ -11,9 +11,14 @@ export const getInvoice =() => {
     )
     */
 
-    const total = invoice.items
-        .map(item => item.price * item.quantity)
-        .reduce((accumulator, currentValue)=> accumulator + currentValue,0)
+    const total = calculateTotal(invoice.items);
+        
     // copiamos el objeto orginal y agregamos mas informacion
     return {...invoice,total};
+}
+
+export const calculateTotal = (items = []) => {
+    return items
+    .map(item => item.price * item.quantity)
+    .reduce((accumulator, currentValue)=> accumulator + currentValue,0);
 }

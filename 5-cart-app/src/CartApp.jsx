@@ -58,7 +58,7 @@ export const CartApp = () => {
                     <div className="col-4 my-2">
                         <div className="card">                        
                             <div className="card-body">
-                                <h5 className="card-title">Teclado Mecanico RGB</h5>
+                                <h5 className="card-title">Teclado Mecanico ldd</h5>
                                 <p className="card-text">Teclado Mecanico con luces RGB Switch Blue</p>
                                 <p className="card-text">$ 1000</p>
                                 <button className="btn btn-primary">Agregar</button>

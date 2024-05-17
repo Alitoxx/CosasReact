@@ -66,6 +66,32 @@ export const CartApp = () => {
                         </div>     
                     </div>          
                 </div>
+                <div className="my-4 w-50">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>nombre</td>
+                                <td>precio</td>
+                                <td>cantidad</td>
+                                <td>total</td>
+                                <td>eliminar</td>
+                            </tr>
+                        </tbody>
+                            
+                        <tfoot>
+
+                        </tfoot>
+                    </table>
+                </div>
             </div>
         </>
     )

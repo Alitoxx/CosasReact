@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../services/productSerive";
 import { ProductCardView } from "./ProductCardView";
 
-export const CatalogVIew = () => {
+export const CatalogVIew = ( {handler }) => {
 
     const [products,setProducts] = useState([]);
     useEffect (
@@ -18,9 +18,11 @@ export const CatalogVIew = () => {
                     <div className="col-4 my-2"
                         key={ prod.id }>
                         <ProductCardView
-                            name={prod.name} 
-                            description={prod.description} 
-                            price={prod.price}
+                            handler= { handler }
+                            id={ prod.id }
+                            name={ prod.name } 
+                            description={ prod.description } 
+                            price={ prod.price }
                         />
                     </div>    
                 ))}

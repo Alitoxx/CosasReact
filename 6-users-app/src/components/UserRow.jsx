@@ -1,12 +1,13 @@
-export const UserRow = ({ id, username, email }) => {
+
+export const UserRow = ({id, username, email}) => {
 
     return (
         <tr>
-            <td> { id }</td>
-            <td> { username }</td>
-            <td> { email }</td>
+            <td>{id}</td>
+            <td>{username}</td>
+            <td>{email}</td>
             <td>
-                <button 
+                <button
                     type="button"
                     className="btn btn-secondary btn-sm"
                 >
@@ -14,7 +15,7 @@ export const UserRow = ({ id, username, email }) => {
                 </button>
             </td>
             <td>
-                <button 
+                <button
                     type="button"
                     className="btn btn-danger btn-sm"
                 >
@@ -22,6 +23,5 @@ export const UserRow = ({ id, username, email }) => {
                 </button>
             </td>
         </tr>
-
     )
 }
